@@ -1,5 +1,5 @@
 /* Reset styling */
-{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,22 +13,28 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden; /* Ensure no scrollbars */
 }
 
+/* Centering the game container */
 .game-container {
   text-align: center;
 }
 
+/* Egg styling */
 .egg {
   position: relative;
-  background-image: url('assets/images/egg.png');
+  background-image: url('assets/images/egg.png'); /* Default egg image */
   width: 200px;
   height: 300px;
   margin: 20px auto;
   background-size: cover;
   border-radius: 50%;
+  cursor: pointer;
+  transition: background-image 0.3s ease; /* Smooth transition for background changes */
 }
 
+/* Meme text positioning */
 .meme-text {
   position: absolute;
   top: 10px;
@@ -36,8 +42,10 @@ body {
   transform: translateX(-50%);
   font-size: 18px;
   color: #333;
+  font-weight: bold;
 }
 
+/* Button positioning and styling */
 .buttons {
   position: absolute;
   bottom: 10px;
@@ -63,7 +71,7 @@ button:focus {
   outline: none;
 }
 
-/* No button movement */
+/* No button movement animation */
 .no {
   position: relative;
 }
@@ -91,6 +99,8 @@ button:focus {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   z-index: 1000;
+  width: 250px; /* Ensure it's not too wide */
+  border-radius: 8px; /* Optional: Rounded corners for the popup */
 }
 
 .popup h2 {
@@ -115,4 +125,3 @@ button:focus {
 .popup button:focus {
   outline: none;
 }
-
