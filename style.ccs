@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1e5d8;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-container {
+  text-align: center;
+}
+
+.egg {
+  position: relative;
+  background-image: url('egg.png'); /* Replace with your egg image */
+  width: 200px;
+  height: 300px;
+  margin: 20px auto;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.meme-text {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: #333;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+button {
+  background-color: #f0c441;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #e5b33d;
+}
+
+button:focus {
+  outline: none;
+}
+
+.no {
+  position: relative;
+}
+
+.no-move {
+  position: absolute;
+  animation: moveButton 1s infinite alternate;
+}
+
+@keyframes moveButton {
+  0% { left: 0; }
+  100% { left: 30px; }
+}
