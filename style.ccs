@@ -1,9 +1,11 @@
+/* Reset styling */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body styling */
 body {
   background-color: #f1e5d8;
   font-family: Arial, sans-serif;
@@ -19,7 +21,7 @@ body {
 
 .egg {
   position: relative;
-  background-image: url('egg.png'); /* Replace with your egg image */
+  background-image: url('assets/images/egg.png');
   width: 200px;
   height: 300px;
   margin: 20px auto;
@@ -61,6 +63,7 @@ button:focus {
   outline: none;
 }
 
+/* No button movement */
 .no {
   position: relative;
 }
@@ -74,3 +77,42 @@ button:focus {
   0% { left: 0; }
   100% { left: 30px; }
 }
+
+/* Popup styling */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 2px solid #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000;
+}
+
+.popup h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.popup button {
+  background-color: #f0c441;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  transition: all 0.2s ease;
+}
+
+.popup button:hover {
+  background-color: #e5b33d;
+}
+
+.popup button:focus {
+  outline: none;
+}
+
