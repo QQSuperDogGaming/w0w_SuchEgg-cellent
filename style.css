@@ -28,7 +28,7 @@ body {
   max-height: 450px; /* Limit max height */
   cursor: pointer;
   transition: transform 0.5s ease-in-out;
-  background-size: contain; /* Ensure the image is displayed in original size */
+  background-size: auto; /* Ensure the image is displayed in original size */
   background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
