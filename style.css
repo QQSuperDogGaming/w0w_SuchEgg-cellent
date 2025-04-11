@@ -19,16 +19,18 @@ body {
 /* Centering the game container */
 .game-container {
   text-align: center;
+  position: relative; /* Allow absolute positioning for the buttons */
 }
 
-/* Egg styling */
+/* Egg styling (images at their original size) */
 .egg {
   position: relative;
-  background-image: url('assets/images/egg.png'); /* Default egg image */
-  width: 200px;
-  height: 300px;
+  background-image: url('assets/images/egg.png');
+  width: 200px;  /* Or set to your preferred width */
+  height: 300px; /* Or set to your preferred height */
   margin: 20px auto;
-  background-size: cover;
+  background-size: contain; /* Ensures the image retains its original aspect ratio */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
   border-radius: 50%;
   cursor: pointer;
   transition: background-image 0.3s ease; /* Smooth transition for background changes */
