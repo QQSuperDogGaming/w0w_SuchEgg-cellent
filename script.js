@@ -21,7 +21,8 @@ function handleShake(event) {
       } else if (shakeCount > 15) {
         egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
         eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
-        showButtons(); // Show the Yes/No buttons
+        showButtons(); // Show the Yes/No buttons after the egg opens
+        isEggOpen = true; // Set flag to prevent further cracking
       }
     }
   }
@@ -29,8 +30,8 @@ function handleShake(event) {
 
 // Show Yes/No buttons after the egg cracks
 function showButtons() {
-  yesButton.style.display = "inline-block";
-  noButton.style.display = "inline-block";
+  yesButton.style.display = "inline-block";  // Make Yes button visible
+  noButton.style.display = "inline-block";   // Make No button visible
 }
 
 // Handle Yes button click
