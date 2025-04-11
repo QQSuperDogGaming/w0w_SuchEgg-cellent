@@ -7,21 +7,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="game-container">
-    <div class="egg" id="egg">
-      <div class="meme-text" id="memeText">Will you be my egg for Easter?</div>
-      <div class="buttons">
-        <button class="yes" id="yesButton">Yes</button>
-        <button class="no" id="noButton">No</button>
-      </div>
+  <div id="eggContainer">
+    <img id="egg" src="assets/images/egg.png" alt="Egg">
+    <div id="eggText">Shake the screen to crack the egg!</div>
+    <div class="buttons" id="buttonContainer">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
     </div>
   </div>
 
-  <!-- Crash Popup -->
+  <!-- Pop-up for too many "No" clicks -->
   <div id="crashPopup" class="popup">
     <div class="popup-content">
       <h2>Steves_1avachicken.exe has crashed</h2>
-      <button id="rebootButton">Close & Reboot</button> <!-- Same button for both actions -->
+      <button id="rebootButton">Close & Reboot</button>
     </div>
   </div>
 
