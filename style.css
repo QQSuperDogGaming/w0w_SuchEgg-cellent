@@ -47,6 +47,7 @@ button {
   cursor: pointer;
   margin: 5px;
   transition: all 0.2s ease;
+  display: none; /* Hide buttons initially */
 }
 
 button:hover {
