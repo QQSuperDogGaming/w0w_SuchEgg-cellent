@@ -1,6 +1,6 @@
 let shakeCount = 0;
 let noClickCount = 0;
-let isEggOpen = false; // This flag ensures buttons are shown only after the egg opens
+let isEggOpen = false;
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
 const yesButton = document.getElementById("yesButton");
@@ -16,8 +16,12 @@ noButton.style.display = "none";
 window.addEventListener('devicemotion', handleShake);
 
 function handleShake(event) {
+  // Check for device shake
   if (event.accelerationIncludingGravity.x > 15 || event.accelerationIncludingGravity.y > 15 || event.accelerationIncludingGravity.z > 15) {
     shakeCount++;
+    console.log("Shake detected! Shake count: " + shakeCount); // Debug log to show shake detection
+    eggText.innerText = "Shaking detected! Keep shaking to crack the egg..."; // Update text for testing
+
     if (!isEggOpen) {
       if (shakeCount > 5 && shakeCount < 15) {
         egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
