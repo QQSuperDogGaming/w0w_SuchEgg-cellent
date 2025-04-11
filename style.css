@@ -22,10 +22,14 @@ body {
 }
 
 #egg {
-  width: 200px;
-  height: 300px;
+  width: auto; /* Remove fixed width */
+  height: auto; /* Remove fixed height */
+  max-width: 300px; /* Limit max width */
+  max-height: 450px; /* Limit max height */
   cursor: pointer;
   transition: transform 0.5s ease-in-out;
+  background-size: contain; /* Ensure the image is displayed in original size */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
 #eggText {
