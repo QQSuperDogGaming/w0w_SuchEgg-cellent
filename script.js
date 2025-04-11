@@ -10,14 +10,14 @@ const rebootButton = document.getElementById('rebootButton');
 
 // Event listeners for buttons
 noButton.addEventListener('mouseover', () => {
-  noButton.classList.add('no-move');
+  teleportNoButton(); // Teleport "no" button when mouse hovers
   playChickenSound();
 });
 
 noButton.addEventListener('click', (e) => {
-  // Prevent the click action by stopping propagation
   e.preventDefault();
   e.stopPropagation();
+  teleportNoButton(); // Teleport "no" button when clicked
   playChickenSound();
 
   clickCount++;
@@ -38,6 +38,7 @@ yesButton.addEventListener('click', () => {
   playYesSound();
   changeMeme('egg-cellent');
   playEggOpenedSound(); // Play egg opened sound when fully opened
+  noButton.style.display = 'none'; // Hide "no" button after clicking "yes"
 });
 
 // Show the crash popup
@@ -85,6 +86,15 @@ function playEggOpenedSound() {
   eggOpenedSound.play();
 }
 
+// Teleport the "no" button to a random position
+function teleportNoButton() {
+  const randomX = Math.random() * 80; // Random X position
+  const randomY = Math.random() * 80; // Random Y position
+  noButton.style.position = 'absolute'; // Make sure it's absolute
+  noButton.style.left = `${randomX}%`;
+  noButton.style.top = `${randomY}%`;
+}
+
 // Reboot button (same button for close and reload)
 rebootButton.addEventListener('click', () => {
   crashPopup.style.display = 'none';  // Close the popup
@@ -92,4 +102,3 @@ rebootButton.addEventListener('click', () => {
     location.reload();  // Reload the page after 2 seconds
   }, 2000);  // Delay the reload for 2 seconds
 });
-
