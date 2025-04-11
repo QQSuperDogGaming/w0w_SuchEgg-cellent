@@ -22,13 +22,12 @@ function handleShake(event) {
   shakeTimeout = setTimeout(() => {
     if (event.accelerationIncludingGravity.x > 15 || event.accelerationIncludingGravity.y > 15 || event.accelerationIncludingGravity.z > 15) {
       shakeCount++;
-      console.log("Shake detected! Shake count: " + shakeCount); // Debug log to show shake detection
-      eggText.innerText = "Shaking detected! Keep shaking to crack the egg..."; // Update text for testing
 
       if (!isEggOpen) {
         if (shakeCount > 5 && shakeCount < 15) {
           egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
           eggText.innerText = "The egg is cracking!";
+          playCrackSound(); // Play crack sound when egg starts cracking
         } else if (shakeCount > 15) {
           egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
           eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
@@ -84,6 +83,12 @@ function playSillySound() {
 function playChickenSound() {
   const chickenSound = new Audio('assets/sounds/chicken.mp3');
   chickenSound.play();
+}
+
+// Play crack sound when the egg cracks
+function playCrackSound() {
+  const crackSound = new Audio('assets/sounds/crack.mp3');
+  crackSound.play();
 }
 
 // Show crash popup if "no" was clicked too many times
