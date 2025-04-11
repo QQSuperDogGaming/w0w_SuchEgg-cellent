@@ -1,12 +1,16 @@
 let shakeCount = 0;
 let noClickCount = 0;
-let isEggOpen = false;
+let isEggOpen = false; // This flag ensures buttons are shown only after the egg opens
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
+
+// Initially hide the buttons
+yesButton.style.display = "none";
+noButton.style.display = "none";
 
 // Handle shake event
 window.addEventListener('devicemotion', handleShake);
