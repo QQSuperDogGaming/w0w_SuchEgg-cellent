@@ -1,104 +1,89 @@
-let clickCount = 0; // Count how many times the user clicks the "no" button
-let chickenPitch = 1; // Start with normal pitch for the chicken sound
+let shakeCount = 0;
+let noClickCount = 0;
+let isEggOpen = false;
+const egg = document.getElementById("egg");
+const eggText = document.getElementById("eggText");
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+const crashPopup = document.getElementById("crashPopup");
+const rebootButton = document.getElementById("rebootButton");
 
-const egg = document.getElementById('egg');
-const memeText = document.getElementById('memeText');
-const yesButton = document.getElementById('yesButton');
-const noButton = document.getElementById('noButton');
-const crashPopup = document.getElementById('crashPopup');
-const rebootButton = document.getElementById('rebootButton');
+// Handle shake event
+window.addEventListener('devicemotion', handleShake);
 
-// Event listeners for buttons
-noButton.addEventListener('mouseover', () => {
-  teleportNoButton(); // Teleport "no" button when mouse hovers
-  playChickenSound();
+function handleShake(event) {
+  if (event.accelerationIncludingGravity.x > 15 || event.accelerationIncludingGravity.y > 15 || event.accelerationIncludingGravity.z > 15) {
+    shakeCount++;
+    if (!isEggOpen) {
+      if (shakeCount > 5 && shakeCount < 15) {
+        egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
+        eggText.innerText = "The egg is cracking!";
+      } else if (shakeCount > 15) {
+        egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
+        eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
+        showButtons(); // Show the Yes/No buttons
+      }
+    }
+  }
+}
+
+// Show Yes/No buttons after the egg cracks
+function showButtons() {
+  yesButton.style.display = "inline-block";
+  noButton.style.display = "inline-block";
+}
+
+// Handle Yes button click
+yesButton.addEventListener('click', () => {
+  playSillySound();
+  eggText.innerText = "Egg-cellent, see you hopping soon!";
+  noButton.style.display = "none"; // Hide "no" button after clicking "yes"
 });
 
+// Handle No button click
 noButton.addEventListener('click', (e) => {
   e.preventDefault();
-  e.stopPropagation();
-  teleportNoButton(); // Teleport "no" button when clicked
-  playChickenSound();
+  teleportNoButton(); // Teleport "no" button and make chicken sound
+  noClickCount++;
 
-  clickCount++;
-
-  // Change to half cracked egg after 3 clicks and play crack sound
-  if (clickCount >= 3 && clickCount < 5) {
-    egg.style.backgroundImage = "url('assets/images/half_cracked_egg.png')";
-    playCrackSound(); // Play crack sound when egg cracks
-  }
-
-  // If the "no" button has been clicked enough times, show the crash popup
-  if (clickCount >= 5) {
+  if (noClickCount >= 40 && noClickCount <= 100) {
     showCrashPopup();
   }
 });
 
-yesButton.addEventListener('click', () => {
-  playYesSound();
-  changeMeme('egg-cellent');
-  playEggOpenedSound(); // Play egg opened sound when fully opened
-  noButton.style.display = 'none'; // Hide "no" button after clicking "yes"
-});
-
-// Show the crash popup
-function showCrashPopup() {
-  setTimeout(() => {
-    crashPopup.style.display = 'block'; // Show the popup after 2 seconds
-  }, 2000);
-}
-
-function changeMeme(type) {
-  switch (type) {
-    case 'egg-cellent':
-      memeText.innerText = 'Egg-cellent!';
-      egg.style.backgroundImage = "url('assets/images/cracked_egg.png')"; // Full cracked egg for "Egg-cellent!"
-      break;
-    default:
-      memeText.innerText = 'Will you be my egg for Easter?';
-      egg.style.backgroundImage = "url('assets/images/egg.png')"; // Default egg image
-  }
-}
-
-function playChickenSound() {
-  const chickenSound = new Audio('assets/sounds/chicken.mp3');  // Chicken sound for "no" button
-  chickenSound.playbackRate = chickenPitch; // Adjust pitch based on click count
-  chickenSound.play();
-
-  // Increase the pitch each time the button is clicked
-  chickenPitch += 0.1; // Increase pitch after every click
-}
-
-function playYesSound() {
-  const yesSound = new Audio('assets/sounds/silly_sound.mp3');  // Silly sound for "yes" button
-  yesSound.play();
-}
-
-// Play the crack sound
-function playCrackSound() {
-  const crackSound = new Audio('assets/sounds/crack.mp3'); // Crack sound for half-cracked egg
-  crackSound.play();
-}
-
-// Play the egg opened sound
-function playEggOpenedSound() {
-  const eggOpenedSound = new Audio('assets/sounds/egg_opened.mp3'); // Egg opened sound
-  eggOpenedSound.play();
-}
-
-// Teleport the "no" button to a random position
+// Teleport the "no" button to a random position on the screen
 function teleportNoButton() {
-  const randomX = Math.random() * 80; // Random X position
-  const randomY = Math.random() * 80; // Random Y position
+  const randomX = Math.random() * 90; // Random X position
+  const randomY = Math.random() * 90; // Random Y position
   noButton.style.position = 'absolute'; // Make sure it's absolute
   noButton.style.left = `${randomX}%`;
   noButton.style.top = `${randomY}%`;
+  playChickenSound(); // Play chicken sound when button is clicked
 }
 
-// Reboot button (same button for close and reload)
-rebootButton.addEventListener('click', () => {
-  crashPopup.style.display = 'none';  // Close the popup
+// Play a silly sound when "yes" is clicked
+function playSillySound() {
+  const sillySound = new Audio('assets/sounds/silly_sound.mp3');
+  sillySound.play();
+}
+
+// Play chicken sound when "no" is clicked
+function playChickenSound() {
+  const chickenSound = new Audio('assets/sounds/chicken.mp3');
+  chickenSound.play();
+}
+
+// Show crash popup if "no" was clicked too many times
+function showCrashPopup() {
   setTimeout(() => {
-    location.reload();  // Reload the page after 2 seconds
-  }, 2000);  // Delay the reload for 2 seconds
+    crashPopup.style.display = 'block'; // Show crash popup after delay
+  }, 2000);
+}
+
+// Reload the page after 5 seconds when the popup is shown
+rebootButton.addEventListener('click', () => {
+  crashPopup.style.display = 'none';
+  setTimeout(() => {
+    location.reload();
+  }, 5000); // Page reload after 5 seconds
 });
