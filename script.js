@@ -1,7 +1,7 @@
 let shakeCount = 0;
 let noClickCount = 0;
 let isEggOpen = false;
-let shakeTimeout; // To throttle the shake detection
+let isShaking = false; // To control when shaking starts and stops
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
 const yesButton = document.getElementById("yesButton");
@@ -13,30 +13,39 @@ const rebootButton = document.getElementById("rebootButton");
 yesButton.style.display = "none";
 noButton.style.display = "none";
 
-// Handle shake event with a debounce to prevent too many triggers
-window.addEventListener('devicemotion', handleShake);
+// Simulate the shake behavior when the user clicks to start shaking
+document.getElementById("egg").addEventListener("click", startShaking);
 
-function handleShake(event) {
-  // Throttle the shake detection using setTimeout to avoid warning and multiple triggers
-  if (shakeTimeout) clearTimeout(shakeTimeout);
-  shakeTimeout = setTimeout(() => {
-    if (event.accelerationIncludingGravity.x > 15 || event.accelerationIncludingGravity.y > 15 || event.accelerationIncludingGravity.z > 15) {
-      shakeCount++;
+function startShaking() {
+  if (!isShaking) {
+    isShaking = true;
+    shakeCount = 0;
+    eggText.innerText = "Shake the screen!";
+    simulateShake(); // Start shaking simulation
+  }
+}
 
-      if (!isEggOpen) {
-        if (shakeCount > 5 && shakeCount < 15) {
-          egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
-          eggText.innerText = "The egg is cracking!";
-          playCrackSound(); // Play crack sound when egg starts cracking
-        } else if (shakeCount > 15) {
-          egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
-          eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
-          showButtons(); // Show the Yes/No buttons after the egg opens
-          isEggOpen = true; // Set flag to prevent further cracking
-        }
+// Simulate the shake action with intervals
+function simulateShake() {
+  if (isShaking && shakeCount <= 20) {
+    shakeCount++;
+    setTimeout(() => {
+      if (shakeCount <= 5) {
+        egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
+        eggText.innerText = "The egg is cracking!";
+        playCrackSound(); // Play crack sound when egg starts cracking
+      } else if (shakeCount > 5 && shakeCount < 15) {
+        egg.src = "assets/images/half_cracked_egg.png"; // Egg continues cracking
+        eggText.innerText = "Keep shaking!";
+      } else if (shakeCount >= 15) {
+        egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
+        eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
+        showButtons(); // Show the Yes/No buttons after the egg opens
+        isEggOpen = true; // Set flag to prevent further cracking
       }
-    }
-  }, 200); // 200 ms debounce to avoid rapid shake triggers
+      simulateShake(); // Continue simulating the shake
+    }, 300); // Adjust the interval to control how fast the shake effect occurs
+  }
 }
 
 // Show Yes/No buttons after the egg cracks
