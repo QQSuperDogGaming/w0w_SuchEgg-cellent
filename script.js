@@ -8,44 +8,41 @@ const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
+const body = document.body;
 
 // Initially hide the buttons
 yesButton.style.display = "none";
 noButton.style.display = "none";
 
-// Simulate the shake behavior when the user clicks to start shaking
-document.getElementById("egg").addEventListener("click", startShaking);
+// Preload sounds to ensure they can be played instantly
+const crackSound = new Audio('assets/sounds/crack.mp3');
+const sillySound = new Audio('assets/sounds/silly_sound.mp3');
+const chickenSound = new Audio('assets/sounds/chicken.mp3');
 
-function startShaking() {
-  if (!isShaking) {
-    isShaking = true;
-    shakeCount = 0;
-    eggText.innerText = "Shake the screen!";
-    simulateShake(); // Start shaking simulation
-  }
-}
+// Handle shake event with a debounce to prevent too many triggers
+window.addEventListener('devicemotion', handleShake);
 
-// Simulate the shake action with intervals
-function simulateShake() {
-  if (isShaking && shakeCount <= 20) {
-    shakeCount++;
-    setTimeout(() => {
-      if (shakeCount <= 5) {
-        egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
-        eggText.innerText = "The egg is cracking!";
-        playCrackSound(); // Play crack sound when egg starts cracking
-      } else if (shakeCount > 5 && shakeCount < 15) {
-        egg.src = "assets/images/half_cracked_egg.png"; // Egg continues cracking
-        eggText.innerText = "Keep shaking!";
-      } else if (shakeCount >= 15) {
-        egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
-        eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
-        showButtons(); // Show the Yes/No buttons after the egg opens
-        isEggOpen = true; // Set flag to prevent further cracking
+function handleShake(event) {
+  // Throttle the shake detection using setTimeout to avoid warning and multiple triggers
+  if (shakeTimeout) clearTimeout(shakeTimeout);
+  shakeTimeout = setTimeout(() => {
+    if (event.accelerationIncludingGravity.x > 15 || event.accelerationIncludingGravity.y > 15 || event.accelerationIncludingGravity.z > 15) {
+      shakeCount++;
+
+      if (!isEggOpen) {
+        if (shakeCount > 10 && shakeCount < 30) {
+          egg.src = "assets/images/half_cracked_egg.png"; // Half cracked egg after some shaking
+          eggText.innerText = "The egg is cracking!";
+          playCrackSound(); // Play crack sound when egg starts cracking
+        } else if (shakeCount >= 30) {
+          egg.src = "assets/images/cracked_egg.png"; // Egg fully cracked after more shaking
+          eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
+          showButtons(); // Show the Yes/No buttons after the egg opens
+          isEggOpen = true; // Set flag to prevent further cracking
+        }
       }
-      simulateShake(); // Continue simulating the shake
-    }, 300); // Adjust the interval to control how fast the shake effect occurs
-  }
+    }
+  }, 300); // 300 ms debounce to slow down the shake detection and avoid rapid triggers
 }
 
 // Show Yes/No buttons after the egg cracks
@@ -67,7 +64,7 @@ noButton.addEventListener('click', (e) => {
   teleportNoButton(); // Teleport "no" button and make chicken sound
   noClickCount++;
 
-  if (noClickCount >= 40 && noClickCount <= 100) {
+  if (noClickCount >= 20 && noClickCount <= 30) {  // Set crash rate between 20 to 30 clicks
     showCrashPopup();
   }
 });
@@ -84,32 +81,31 @@ function teleportNoButton() {
 
 // Play a silly sound when "yes" is clicked
 function playSillySound() {
-  const sillySound = new Audio('assets/sounds/silly_sound.mp3');
   sillySound.play();
 }
 
 // Play chicken sound when "no" is clicked
 function playChickenSound() {
-  const chickenSound = new Audio('assets/sounds/chicken.mp3');
   chickenSound.play();
 }
 
 // Play crack sound when the egg cracks
 function playCrackSound() {
-  const crackSound = new Audio('assets/sounds/crack.mp3');
   crackSound.play();
 }
 
-// Show crash popup if "no" was clicked too many times
+// Show crash popup if "no" was clicked too many times (between 20 and 30)
 function showCrashPopup() {
   setTimeout(() => {
     crashPopup.style.display = 'block'; // Show crash popup after delay
+    body.style.backgroundColor = 'black'; // Turn the background black
   }, 2000);
 }
 
 // Reload the page after 5 seconds when the popup is shown
 rebootButton.addEventListener('click', () => {
   crashPopup.style.display = 'none';
+  body.style.backgroundColor = ''; // Restore original background color
   setTimeout(() => {
     location.reload();
   }, 5000); // Page reload after 5 seconds
