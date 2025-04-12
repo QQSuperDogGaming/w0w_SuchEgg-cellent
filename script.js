@@ -23,9 +23,9 @@ egg.addEventListener("click", revealEgg);
 
 function revealEgg() {
   const eggTextures = [
-    { src: "assets/images/egg1.gif", rarity: "Common" },  // Egg1 - Common
+    { src: "assets/images/egg1.png", rarity: "Common" },  // Egg1 - Common
     { src: "assets/images/egg2.png", rarity: "Rare" },    // Egg2 - Rare
-    { src: "assets/images/egg3.png", rarity: "Legendary" } // Egg3 - Legendary
+    { src: "assets/images/egg3.gif", rarity: "Legendary" } // Egg3 - Legendary
   ];
 
   const randomEgg = eggTextures[Math.floor(Math.random() * eggTextures.length)];
