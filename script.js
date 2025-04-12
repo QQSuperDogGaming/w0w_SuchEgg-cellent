@@ -18,6 +18,10 @@ const crackSound = new Audio('assets/sounds/crack.mp3');
 const sillySound = new Audio('assets/sounds/silly_sound.mp3');
 const chickenSound = new Audio('assets/sounds/chicken.mp3');
 
+// Set initial egg state to question mark
+egg.src = "assets/images/question_egg.png"; // Show the question mark egg
+eggText.innerText = "Click the egg to reveal the mystery!";
+
 // Handle click event to reveal the egg texture
 egg.addEventListener("click", revealEgg);
 
@@ -25,11 +29,11 @@ function revealEgg() {
   const eggTextures = [
     { src: "assets/images/egg1.png", rarity: "Common" },  // Egg1 - Common
     { src: "assets/images/egg2.png", rarity: "Rare" },    // Egg2 - Rare
-    { src: "assets/images/egg3.gif", rarity: "Legendary" } // Egg3 - Legendary
+    { src: "assets/images/egg3.png", rarity: "Legendary" } // Egg3 - Legendary
   ];
 
   const randomEgg = eggTextures[Math.floor(Math.random() * eggTextures.length)];
-  egg.src = randomEgg.src; // Set the egg texture
+  egg.src = randomEgg.src; // Set the egg texture to a random one
   eggText.innerText = `Shake it to crack open! Rarity: ${randomEgg.rarity}`;
   egg.removeEventListener("click", revealEgg); // Remove the click event after revealing egg texture
   startShaking(); // Start shaking the egg
