@@ -23,13 +23,14 @@ egg.addEventListener("click", revealEgg);
 
 function revealEgg() {
   const eggTextures = [
-    "assets/images/egg1.png", // Egg texture 1
-    "assets/images/egg2.png", // Egg texture 2
-    "assets/images/egg3.png"  // Egg texture 3
+    { src: "assets/images/half_cracked_egg1.png", rarity: "Common" },  // Egg1 - Common
+    { src: "assets/images/half_cracked_egg2.png", rarity: "Rare" },    // Egg2 - Rare
+    { src: "assets/images/half_cracked_egg3.png", rarity: "Legendary" } // Egg3 - Legendary
   ];
-  const randomEggTexture = eggTextures[Math.floor(Math.random() * eggTextures.length)];
-  egg.src = randomEggTexture;
-  eggText.innerText = "Shake it to crack open!";
+
+  const randomEgg = eggTextures[Math.floor(Math.random() * eggTextures.length)];
+  egg.src = randomEgg.src; // Set the egg texture
+  eggText.innerText = `Shake it to crack open! Rarity: ${randomEgg.rarity}`;
   egg.removeEventListener("click", revealEgg); // Remove the click event after revealing egg texture
   startShaking(); // Start shaking the egg
 }
@@ -55,7 +56,14 @@ function simulateShake() {
       } else if (shakeCount > 5 && shakeCount < 15) {
         egg.src = egg.src; // Continue cracking
       } else if (shakeCount >= 15) {
-        egg.src = "assets/images/cracked_egg.png"; // Fully cracked egg
+        // Change to one of the opened egg textures
+        const openedEggTextures = [
+          "assets/images/opened_egg1.png", // Opened egg texture 1
+          "assets/images/opened_egg2.png", // Opened egg texture 2
+          "assets/images/opened_egg3.png"  // Opened egg texture 3
+        ];
+        const randomOpenedEgg = openedEggTextures[Math.floor(Math.random() * openedEggTextures.length)];
+        egg.src = randomOpenedEgg;
         eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
         showButtons(); // Show the Yes/No buttons after the egg opens
         isEggOpen = true;
