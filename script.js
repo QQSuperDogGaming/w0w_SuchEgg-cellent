@@ -23,9 +23,9 @@ egg.addEventListener("click", revealEgg);
 
 function revealEgg() {
   const eggTextures = [
-    { src: "assets/images/half_cracked_egg1.png", rarity: "Common" },  // Egg1 - Common
-    { src: "assets/images/half_cracked_egg2.png", rarity: "Rare" },    // Egg2 - Rare
-    { src: "assets/images/half_cracked_egg3.png", rarity: "Legendary" } // Egg3 - Legendary
+    { src: "assets/images/egg1.png", rarity: "Common" },  // Egg1 - Common
+    { src: "assets/images/egg2.png", rarity: "Rare" },    // Egg2 - Rare
+    { src: "assets/images/egg3.png", rarity: "Legendary" } // Egg3 - Legendary
   ];
 
   const randomEgg = eggTextures[Math.floor(Math.random() * eggTextures.length)];
@@ -54,7 +54,15 @@ function simulateShake() {
         egg.src = egg.src; // Keep it the same for now
         playCrackSound(); // Play crack sound when egg starts cracking
       } else if (shakeCount > 5 && shakeCount < 15) {
-        egg.src = egg.src; // Continue cracking
+        // Change to half-cracked egg
+        const halfCrackedEggTextures = [
+          "assets/images/half_cracked_egg1.png", // Half-cracked egg texture 1
+          "assets/images/half_cracked_egg2.png", // Half-cracked egg texture 2
+          "assets/images/half_cracked_egg3.png"  // Half-cracked egg texture 3
+        ];
+        const randomHalfCrackedEgg = halfCrackedEggTextures[Math.floor(Math.random() * halfCrackedEggTextures.length)];
+        egg.src = randomHalfCrackedEgg;
+        eggText.innerText = "The egg is cracking!";
       } else if (shakeCount >= 15) {
         // Change to one of the opened egg textures
         const openedEggTextures = [
