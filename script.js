@@ -2,6 +2,7 @@ let shakeCount = 0;
 let noClickCount = 0;
 let isEggOpen = false;
 let isShaking = false; // To control when shaking starts and stops
+let revealedEgg = ""; // Store the revealed egg for transitions
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
 const yesButton = document.getElementById("yesButton");
@@ -33,8 +34,9 @@ function revealEgg() {
   ];
 
   const randomEgg = eggTextures[Math.floor(Math.random() * eggTextures.length)];
-  egg.src = randomEgg.src; // Set the egg texture to a random one
+  egg.src = randomEgg.src; // Set the egg texture
   eggText.innerText = `Shake it to crack open! Rarity: ${randomEgg.rarity}`;
+  revealedEgg = randomEgg.src; // Store the revealed egg for later transitions
   egg.removeEventListener("click", revealEgg); // Remove the click event after revealing egg texture
   startShaking(); // Start shaking the egg
 }
@@ -55,27 +57,17 @@ function simulateShake() {
     shakeCount++;
     setTimeout(() => {
       if (shakeCount <= 5) {
-        egg.src = egg.src; // Keep it the same for now
+        egg.src = revealedEgg; // Keep it the same for now
         playCrackSound(); // Play crack sound when egg starts cracking
       } else if (shakeCount > 5 && shakeCount < 15) {
-        // Change to half-cracked egg
-        const halfCrackedEggTextures = [
-          "assets/images/half_cracked_egg1.png", // Half-cracked egg texture 1
-          "assets/images/half_cracked_egg2.png", // Half-cracked egg texture 2
-          "assets/images/half_cracked_egg3.png"  // Half-cracked egg texture 3
-        ];
-        const randomHalfCrackedEgg = halfCrackedEggTextures[Math.floor(Math.random() * halfCrackedEggTextures.length)];
-        egg.src = randomHalfCrackedEgg;
+        // Change to half-cracked version of the revealed egg
+        const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
+        egg.src = halfCrackedEgg;
         eggText.innerText = "The egg is cracking!";
       } else if (shakeCount >= 15) {
-        // Change to one of the opened egg textures
-        const openedEggTextures = [
-          "assets/images/opened_egg1.png", // Opened egg texture 1
-          "assets/images/opened_egg2.png", // Opened egg texture 2
-          "assets/images/opened_egg3.png"  // Opened egg texture 3
-        ];
-        const randomOpenedEgg = openedEggTextures[Math.floor(Math.random() * openedEggTextures.length)];
-        egg.src = randomOpenedEgg;
+        // Change to opened version of the revealed egg
+        const openedEgg = revealedEgg.replace("egg", "opened_egg");
+        egg.src = openedEgg;
         eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
         showButtons(); // Show the Yes/No buttons after the egg opens
         isEggOpen = true;
