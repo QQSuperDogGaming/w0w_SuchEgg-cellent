@@ -12,6 +12,7 @@ const rebootButton = document.getElementById("rebootButton");
 
 // Initially hide the buttons
 yesButton.style.display = "none";
+
 noButton.style.display = "none";
 
 // Preload sounds to ensure they can be played instantly
@@ -138,7 +139,9 @@ function showCrashPopup() {
 rebootButton.addEventListener('click', () => {
   crashPopup.style.display = 'none';
   body.style.backgroundColor = ''; // Restore original background color
+  
+  // Reload the page after 5 seconds
   setTimeout(() => {
-    location.reload();
+    location.reload(); // This reloads the page
   }, 5000); // Page reload after 5 seconds
 });
