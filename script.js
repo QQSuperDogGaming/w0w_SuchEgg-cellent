@@ -73,7 +73,7 @@ function simulateShake() {
         isEggOpen = true;
       }
       simulateShake(); // Continue simulating the shake
-    }, 300); // Adjust the interval to control how fast the shake effect occurs
+    }, 200); // Reduced the interval to make transitions smoother and quicker
   }
 }
 
