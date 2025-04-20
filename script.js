@@ -1,5 +1,4 @@
 let shakeCount = 0;
-let noClickCount = 0;
 let isEggOpen = false;
 let revealedEgg = ""; // Store the revealed egg for transitions
 const egg = document.getElementById("egg");
@@ -10,7 +9,7 @@ const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
 // Shake detection sensitivity threshold (lower value = more sensitive)
-const shakeThreshold = 5; // Lowered threshold for more sensitive shake detection
+const shakeThreshold = 10; // Lower threshold for more sensitivity
 
 // Initially hide the buttons
 yesButton.style.display = "none";
@@ -60,8 +59,18 @@ window.addEventListener('devicemotion', function(event) {
   const deltaY = Math.abs(lastY - y);
   const deltaZ = Math.abs(lastZ - z);
 
-  // Detect shake based on threshold (only register when shake exceeds threshold)
-  if (deltaX + deltaY + deltaZ > shakeThreshold) {
+  // Calculate the total shake intensity
+  const shakeIntensity = deltaX + deltaY + deltaZ;
+
+  // Update the shake meter (progress bar)
+  const shakeMeter = document.getElementById("shakeMeter");
+  shakeMeter.value = Math.min(shakeIntensity, 100); // Ensure the value doesn't exceed 100
+
+  // Log the current shake intensity for debugging
+  console.log("Shake Intensity: ", shakeIntensity);
+
+  // If the shake intensity exceeds the threshold, register it as a shake
+  if (shakeIntensity > shakeThreshold) {
     playCrackSound(); // Play the crack sound each time a shake is detected
     shakeCount++; // Increase shake count
 
