@@ -10,18 +10,19 @@ const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
-// Initially hide the buttons
-yesButton.style.display = "none";
-noButton.style.display = "none";
-
-// Preload sounds to ensure they can be played instantly
-const crackSound = new Audio('assets/sounds/crack.mp3');
-const sillySound = new Audio('assets/sounds/silly_sound.mp3');
-const chickenSound = new Audio('assets/sounds/chicken.mp3');
-
 // Set initial egg state to question mark
 egg.src = "assets/images/question_egg.png"; // Show the question mark egg
 eggText.innerText = "Click the egg to reveal the mystery!";
+
+// Preload sounds
+const crackSound = new Audio('assets/sounds/crack.mp3');
+const sillySound = new Audio('assets/sounds/silly_sound.mp3');
+const chickenSound = new Audio('assets/sounds/chicken.mp3');
+const proposalSound = new Audio('assets/sounds/proposal.mp3');
+
+// Preload error popup image
+const errorImage = new Image();
+errorImage.src = 'assets/images/error_popup.png'; // Path to the error image
 
 // Handle click event to reveal the egg texture
 egg.addEventListener("click", revealEgg);
@@ -41,7 +42,7 @@ function revealEgg() {
   startShaking(); // Start shaking the egg
 }
 
-// Simulate the shake action with immediate transitions
+// Simulate the shake action with intervals
 function startShaking() {
   if (!isShaking) {
     isShaking = true;
@@ -72,11 +73,17 @@ function simulateShake() {
       egg.src = openedEgg;
       eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
       showButtons(); // Show the Yes/No buttons after the egg opens
+      playProposalSound(); // Play proposal sound after egg opens
       isEggOpen = true;
     }
     // Continue simulating the shake without waiting too long
     setTimeout(simulateShake, 100); // Reduced delay to 100ms for smooth transition
   }
+}
+
+// Play the proposal sound after the egg opens
+function playProposalSound() {
+  proposalSound.play();
 }
 
 // Show Yes/No buttons after the egg cracks
@@ -85,11 +92,12 @@ function showButtons() {
   noButton.style.display = "inline-block";   // Make No button visible
 }
 
-// Handle Yes button click
+// Handle Yes button click (hides after click)
 yesButton.addEventListener('click', () => {
   playSillySound();
   eggText.innerText = "Egg-cellent, see you hopping soon!";
   noButton.style.display = "none"; // Hide "no" button after clicking "yes"
+  yesButton.style.display = "none"; // Hide "yes" button after clicking
 });
 
 // Handle No button click
@@ -99,7 +107,7 @@ noButton.addEventListener('click', (e) => {
   noClickCount++;
 
   if (noClickCount >= 20 && noClickCount <= 30) {  // Set crash rate between 20 to 30 clicks
-    showCrashPopup();
+    showCrashPopup(); // Show crash popup with the error image
   }
 });
 
@@ -130,19 +138,23 @@ function playCrackSound() {
 
 // Show crash popup if "no" was clicked too many times (between 20 and 30)
 function showCrashPopup() {
+  const crashPopupImage = document.createElement('img');
+  crashPopupImage.src = 'assets/images/error_popup.png'; // Path to the error popup image
+  crashPopupImage.alt = "Error Popup";
+  crashPopupImage.style.position = 'absolute';
+  crashPopupImage.style.top = '50%';
+  crashPopupImage.style.left = '50%';
+  crashPopupImage.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(crashPopupImage); // Append the image to the body
+
   setTimeout(() => {
-    crashPopup.style.display = 'block'; // Show crash popup after delay
-    body.style.backgroundColor = 'black'; // Turn the background black
-  }, 2000);
+    location.reload(); // Reload the page after 5 seconds
+  }, 5000); // Page reload after 5 seconds
 }
 
 // Reload the page after 5 seconds when the popup is shown
 rebootButton.addEventListener('click', () => {
-  crashPopup.style.display = 'none';
-  body.style.backgroundColor = ''; // Restore original background color
-  
-  // Reload the page after 5 seconds
   setTimeout(() => {
-    location.reload(); // This reloads the page
+    location.reload(); // Reload the page
   }, 5000); // Page reload after 5 seconds
 });
