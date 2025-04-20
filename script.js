@@ -1,7 +1,6 @@
 let shakeCount = 0;
 let noClickCount = 0;
 let isEggOpen = false;
-let isShaking = false; // To control when shaking starts and stops
 let revealedEgg = ""; // Store the revealed egg for transitions
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
@@ -10,8 +9,8 @@ const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
-// Shake detection sensitivity threshold
-const shakeThreshold = 15; // Threshold to determine a shake (lower = more sensitive)
+// Shake detection sensitivity threshold (higher value = less sensitive)
+const shakeThreshold = 15; // Change to 15 for less sensitivity
 
 // Initially hide the buttons
 yesButton.style.display = "none";
@@ -56,15 +55,15 @@ window.addEventListener('devicemotion', function(event) {
   const y = acceleration.y;
   const z = acceleration.z;
 
-  // Calculate the shake intensity
+  // Calculate the shake intensity (delta)
   const deltaX = Math.abs(lastX - x);
   const deltaY = Math.abs(lastY - y);
   const deltaZ = Math.abs(lastZ - z);
 
+  // Detect shake based on threshold
   if (deltaX + deltaY + deltaZ > shakeThreshold) {
-    // Shake detected, play the crack sound and update the shake count
     playCrackSound(); // Play the crack sound each time a shake is detected
-    shakeCount++;
+    shakeCount++; // Increase shake count
 
     // Reset text and handle egg opening based on shake count
     if (shakeCount <= 20) {
@@ -179,4 +178,3 @@ rebootButton.addEventListener('click', () => {
     location.reload(); // Reload the page
   }, 5000); // Page reload after 5 seconds
 });
-
