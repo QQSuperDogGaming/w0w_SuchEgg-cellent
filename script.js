@@ -9,7 +9,7 @@ const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
 // Shake detection sensitivity threshold (lower value = more sensitive)
-const shakeThreshold = 10; // Lower threshold for more sensitivity
+const shakeThreshold = 2; // Lower threshold for more sensitivity
 
 // Initially hide the buttons
 yesButton.style.display = "none";
