@@ -54,20 +54,17 @@ function startShaking() {
 
 // Simulate the shake effect without long delays
 function simulateShake() {
-  if (isShaking && shakeCount <= 20) {
+  if (isShaking && shakeCount <= 8) {
     shakeCount++;
-    if (shakeCount <= 5) {
+    if (shakeCount <= 3) {
       egg.src = revealedEgg; // Keep it the same for now
       playCrackSound(); // Play crack sound when egg starts cracking
-    } else if (shakeCount > 5 && shakeCount <= 10) {
+    } else if (shakeCount > 3 && shakeCount <= 6) {
       // Transition to half-cracked version immediately
       const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
       egg.src = halfCrackedEgg;
       eggText.innerText = "The egg is cracking!";
-    } else if (shakeCount > 10 && shakeCount <= 15) {
-      // Keep half-cracked egg for a few moments
-      egg.src = egg.src;
-    } else if (shakeCount > 15) {
+    } else if (shakeCount > 6) {
       // Transition to opened version of the revealed egg immediately
       const openedEgg = revealedEgg.replace("egg", "opened_egg");
       egg.src = openedEgg;
@@ -106,7 +103,7 @@ noButton.addEventListener('click', (e) => {
   teleportNoButton(); // Teleport "no" button and make chicken sound
   noClickCount++;
 
-  if (noClickCount >= 20 && noClickCount <= 30) {  // Set crash rate between 20 to 30 clicks
+  if (noClickCount > 30) {  // Show crash popup after pressing No 30+ times
     showCrashPopup(); // Show crash popup with the error image
   }
 });
@@ -128,6 +125,8 @@ function playSillySound() {
 
 // Play chicken sound when "no" is clicked
 function playChickenSound() {
+  // Increase the pitch with each "No" click
+  chickenSound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
   chickenSound.play();
 }
 
@@ -136,4 +135,30 @@ function playCrackSound() {
   crackSound.play();
 }
 
-//
+// Show crash popup if "no" was clicked too many times (between 20 and 30)
+function showCrashPopup() {
+  const crashPopupImage = document.createElement('img');
+  crashPopupImage.src = 'assets/images/error_popup.png'; // Path to the error popup image
+  crashPopupImage.alt = "Error Popup";
+  crashPopupImage.style.position = 'absolute';
+  crashPopupImage.style.top = '50%';
+  crashPopupImage.style.left = '50%';
+  crashPopupImage.style.transform = 'translate(-50%, -50%)';
+  
+  // Set max width and height to make the image smaller
+  crashPopupImage.style.maxWidth = '500px'; // Set the max width of the popup
+  crashPopupImage.style.maxHeight = '500px'; // Set the max height of the popup
+
+  document.body.appendChild(crashPopupImage); // Append the image to the body
+
+  setTimeout(() => {
+    location.reload(); // Reload the page after 5 seconds
+  }, 5000); // Page reload after 5 seconds
+}
+
+// Reload the page after 5 seconds when the popup is shown
+rebootButton.addEventListener('click', () => {
+  setTimeout(() => {
+    location.reload(); // Reload the page
+  }, 5000); // Page reload after 5 seconds
+});
