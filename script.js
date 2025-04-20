@@ -16,7 +16,7 @@ noButton.style.display = "none";
 
 // Preload sounds to ensure they can be played instantly
 const crackSound = new Audio('assets/sounds/crack.mp3');
-const sillySound = new Audio('assets/sounds/silly_sound.mp3');
+const sillySound = new Audio('assets/sounds/silly_sound.mp3'); // Silly sound on Yes
 const chickenSound = new Audio('assets/sounds/chicken.mp3');
 const proposalSound = new Audio('assets/sounds/proposal.mp3'); // Preload proposal sound
 
@@ -81,9 +81,9 @@ function simulateShake() {
   }
 }
 
-// Play the proposal sound after the egg opens
-function playProposalSound() {
-  proposalSound.play();
+// Play the silly sound after the Yes button is clicked
+function playSillySound() {
+  sillySound.play();
 }
 
 // Show Yes/No buttons after the egg cracks
@@ -95,11 +95,11 @@ function showButtons() {
 // Handle Yes button click (hides after click)
 yesButton.addEventListener('click', () => {
   playSillySound(); // Play the silly sound when "Yes" is clicked
-  eggText.innerText = "Egg-cellent, see you hopping soon!";
+  eggText.innerText = "Egg-cellent, see you hopping soon <3"; // Update the text
   noButton.style.display = "none"; // Hide "no" button after clicking "yes"
   yesButton.style.display = "none"; // Hide "yes" button after clicking
 
-  // Perform a simple action when "Yes" is clicked (e.g., reset or go to next phase)
+  // Optionally reset the egg or transition to the next part of your game
   setTimeout(() => {
     egg.src = "assets/images/question_egg.png"; // Reset egg to its original state
     eggText.innerText = "Click the egg to reveal the mystery!";
