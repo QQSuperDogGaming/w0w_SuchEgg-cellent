@@ -147,8 +147,8 @@ function showCrashPopup() {
   crashPopupImage.style.transform = 'translate(-50%, -50%)';
   
   // Set max width and height to make the image smaller
-  crashPopupImage.style.maxWidth = '500px'; // Set the max width of the popup
-  crashPopupImage.style.maxHeight = '500px'; // Set the max height of the popup
+  crashPopupImage.style.maxWidth = '250px'; // Set the max width of the popup to 250px
+  crashPopupImage.style.maxHeight = '250px'; // Set the max height of the popup to 250px
 
   document.body.appendChild(crashPopupImage); // Append the image to the body
 
