@@ -10,6 +10,9 @@ const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
+// Shake detection sensitivity threshold
+const shakeThreshold = 15; // Threshold to determine a shake (lower = more sensitive)
+
 // Initially hide the buttons
 yesButton.style.display = "none";
 noButton.style.display = "none";
@@ -42,33 +45,37 @@ function revealEgg() {
   startShaking(); // Start shaking the egg
 }
 
-// Simulate the shake action with intervals
-function startShaking() {
-  if (!isShaking) {
-    isShaking = true;
-    shakeCount = 0;
-    eggText.innerText = "Shake the screen!";
-    simulateShake(); // Start shaking simulation
-  }
-}
+// Set up device motion detection for shake
+let lastX = 0;
+let lastY = 0;
+let lastZ = 0;
 
-// Simulate the shake effect without long delays
-function simulateShake() {
-  if (isShaking && shakeCount <= 50) {  // Change to 50 shakes for hatching
+window.addEventListener('devicemotion', function(event) {
+  const acceleration = event.accelerationIncludingGravity;
+  const x = acceleration.x;
+  const y = acceleration.y;
+  const z = acceleration.z;
+
+  // Calculate the shake intensity
+  const deltaX = Math.abs(lastX - x);
+  const deltaY = Math.abs(lastY - y);
+  const deltaZ = Math.abs(lastZ - z);
+
+  if (deltaX + deltaY + deltaZ > shakeThreshold) {
+    // Shake detected, play the crack sound and update the shake count
+    playCrackSound(); // Play the crack sound each time a shake is detected
     shakeCount++;
-    if (shakeCount <= 10) {
-      egg.src = revealedEgg; // Keep it the same for now
-      playCrackSound(); // Play crack sound when egg starts cracking
-    } else if (shakeCount > 10 && shakeCount <= 25) {
-      // Transition to half-cracked version immediately
+
+    // Reset text and handle egg opening based on shake count
+    if (shakeCount <= 20) {
+      eggText.innerText = `Shake ${shakeCount}/100!`;
+    } else if (shakeCount > 20 && shakeCount <= 50) {
+      eggText.innerText = `The egg is cracking! Shake ${shakeCount}/100`;
       const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
       egg.src = halfCrackedEgg;
-      eggText.innerText = "The egg is cracking!";
-    } else if (shakeCount > 25 && shakeCount <= 40) {
-      // Keep half-cracked egg for a few moments
-      egg.src = egg.src;
-    } else if (shakeCount > 40) {
-      // Transition to opened version of the revealed egg immediately
+    } else if (shakeCount > 50 && shakeCount <= 75) {
+      eggText.innerText = `Keep shaking! Shake ${shakeCount}/100`;
+    } else if (shakeCount > 75 && shakeCount <= 100) {
       const openedEgg = revealedEgg.replace("egg", "opened_egg");
       egg.src = openedEgg;
       eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
@@ -76,10 +83,13 @@ function simulateShake() {
       playProposalSound(); // Play proposal sound after egg opens
       isEggOpen = true;
     }
-    // Continue simulating the shake without waiting too long
-    setTimeout(simulateShake, 100); // Reduced delay to 100ms for smooth transition
   }
-}
+
+  // Save the last acceleration values for the next event
+  lastX = x;
+  lastY = y;
+  lastZ = z;
+});
 
 // Play the silly sound after the Yes button is clicked
 function playSillySound() {
@@ -169,3 +179,4 @@ rebootButton.addEventListener('click', () => {
     location.reload(); // Reload the page
   }, 5000); // Page reload after 5 seconds
 });
+
