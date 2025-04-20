@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Easter Egg Game</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg Cracking Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="eggContainer">
-    <img id="egg" src="assets/images/question_egg.png" alt="Egg">
-    <div id="eggText">Click the egg to reveal the mystery!</div>
-    <div class="buttons" id="buttonContainer">
-      <button id="yesButton">Yes</button>
-      <button id="noButton">No</button>
+    <div id="game-container">
+        <img id="egg" src="assets/images/question_egg.png" alt="Egg">
+        <p id="eggText">Click the egg to reveal the mystery!</p>
+        <button id="yesButton" style="display: none;">Yes</button>
+        <button id="noButton" style="display: none;">No</button>
+        <div id="crashPopup" style="display: none;">
+            <!-- Error Popup will be inserted dynamically -->
+        </div>
+        <button id="rebootButton" style="display: none;">Close and Reboot</button>
     </div>
-  </div>
-
-  <!-- Pop-up for too many "No" clicks -->
-  <div id="crashPopup" class="popup">
-    <div class="popup-content">
-      <h2>Steves_1avachicken.exe has crashed</h2>
-      <button id="rebootButton">Close & Reboot</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
