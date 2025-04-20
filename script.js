@@ -103,8 +103,11 @@ noButton.addEventListener('click', (e) => {
   teleportNoButton(); // Teleport "no" button and make chicken sound
   noClickCount++;
 
-  if (noClickCount > 30) {  // Show crash popup after pressing No 30+ times
-    showCrashPopup(); // Show crash popup with the error image
+  if (noClickCount >= 20 && noClickCount <= 30) {  // Show crash popup after pressing No between 20-30 times
+    const randomChance = Math.floor(Math.random() * 10); // Random chance for popup (30% chance)
+    if (randomChance < 3) {
+      showCrashPopup(); // Show crash popup with the error image
+    }
   }
 });
 
@@ -118,7 +121,7 @@ function teleportNoButton() {
   playChickenSound(); // Play the chicken sound when button is clicked
 }
 
-// Play a chicken sound when "no" is clicked
+// Play chicken sound when "no" is clicked
 function playChickenSound() {
   // Increase the pitch of the chicken sound with each "No" click
   chickenSound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
