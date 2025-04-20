@@ -101,32 +101,3 @@ button:focus {
 .popup button:focus {
   outline: none;
 }
-
-/* Styling for the shake meter */
-#shakeMeterContainer {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#shakeMeter {
-  width: 200px;
-  height: 20px;
-  margin-top: 10px;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #ddd;
-  border-radius: 10px;
-}
-
-#shakeMeter::-webkit-progress-bar {
-  background-color: #f1f1f1;
-}
-
-#shakeMeter::-webkit-progress-value {
-  background-color: #f0c441;
-}
