@@ -10,7 +10,7 @@ const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
 // Shake detection sensitivity threshold (higher value = less sensitive)
-const shakeThreshold = 15; // Change to 15 for less sensitivity
+const shakeThreshold = 20; // Change to 20 for less sensitivity, higher means less sensitivity
 
 // Initially hide the buttons
 yesButton.style.display = "none";
@@ -60,7 +60,7 @@ window.addEventListener('devicemotion', function(event) {
   const deltaY = Math.abs(lastY - y);
   const deltaZ = Math.abs(lastZ - z);
 
-  // Detect shake based on threshold
+  // Detect shake based on threshold (only register when shake exceeds threshold)
   if (deltaX + deltaY + deltaZ > shakeThreshold) {
     playCrackSound(); // Play the crack sound each time a shake is detected
     shakeCount++; // Increase shake count
