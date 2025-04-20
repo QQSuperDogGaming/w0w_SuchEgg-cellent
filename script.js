@@ -115,19 +115,14 @@ function teleportNoButton() {
   noButton.style.position = 'absolute'; // Make sure it's absolute
   noButton.style.left = `${randomX}%`;
   noButton.style.top = `${randomY}%`;
-  playChickenSound(); // Play chicken sound when button is clicked
+  playSillySound(); // Play the silly sound when button is clicked
 }
 
 // Play a silly sound when "yes" is clicked
 function playSillySound() {
+  // Increase the pitch of the silly sound with each "No" click
+  sillySound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
   sillySound.play();
-}
-
-// Play chicken sound when "no" is clicked
-function playChickenSound() {
-  // Increase the pitch with each "No" click
-  chickenSound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
-  chickenSound.play();
 }
 
 // Play crack sound when the egg cracks
