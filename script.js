@@ -12,7 +12,6 @@ const rebootButton = document.getElementById("rebootButton");
 
 // Initially hide the buttons
 yesButton.style.display = "none";
-
 noButton.style.display = "none";
 
 // Preload sounds to ensure they can be played instantly
@@ -42,7 +41,7 @@ function revealEgg() {
   startShaking(); // Start shaking the egg
 }
 
-// Simulate the shake action with intervals
+// Simulate the shake action with immediate transitions
 function startShaking() {
   if (!isShaking) {
     isShaking = true;
@@ -52,29 +51,31 @@ function startShaking() {
   }
 }
 
-// Simulate the shake effect
+// Simulate the shake effect without long delays
 function simulateShake() {
   if (isShaking && shakeCount <= 20) {
     shakeCount++;
-    setTimeout(() => {
-      if (shakeCount <= 5) {
-        egg.src = revealedEgg; // Keep it the same for now
-        playCrackSound(); // Play crack sound when egg starts cracking
-      } else if (shakeCount > 5 && shakeCount < 15) {
-        // Change to half-cracked version of the revealed egg
-        const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
-        egg.src = halfCrackedEgg;
-        eggText.innerText = "The egg is cracking!";
-      } else if (shakeCount >= 15) {
-        // Change to opened version of the revealed egg
-        const openedEgg = revealedEgg.replace("egg", "opened_egg");
-        egg.src = openedEgg;
-        eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
-        showButtons(); // Show the Yes/No buttons after the egg opens
-        isEggOpen = true;
-      }
-      simulateShake(); // Continue simulating the shake
-    }, 200); // Reduced the interval to make transitions smoother and quicker
+    if (shakeCount <= 5) {
+      egg.src = revealedEgg; // Keep it the same for now
+      playCrackSound(); // Play crack sound when egg starts cracking
+    } else if (shakeCount > 5 && shakeCount <= 10) {
+      // Transition to half-cracked version immediately
+      const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
+      egg.src = halfCrackedEgg;
+      eggText.innerText = "The egg is cracking!";
+    } else if (shakeCount > 10 && shakeCount <= 15) {
+      // Keep half-cracked egg for a few moments
+      egg.src = egg.src;
+    } else if (shakeCount > 15) {
+      // Transition to opened version of the revealed egg immediately
+      const openedEgg = revealedEgg.replace("egg", "opened_egg");
+      egg.src = openedEgg;
+      eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
+      showButtons(); // Show the Yes/No buttons after the egg opens
+      isEggOpen = true;
+    }
+    // Continue simulating the shake without waiting too long
+    setTimeout(simulateShake, 100); // Reduced delay to 100ms for smooth transition
   }
 }
 
