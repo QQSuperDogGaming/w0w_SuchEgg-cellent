@@ -98,6 +98,12 @@ yesButton.addEventListener('click', () => {
   eggText.innerText = "Egg-cellent, see you hopping soon!";
   noButton.style.display = "none"; // Hide "no" button after clicking "yes"
   yesButton.style.display = "none"; // Hide "yes" button after clicking
+
+  // Perform a simple action when "Yes" is clicked (e.g., reset or go to next phase)
+  setTimeout(() => {
+    egg.src = "assets/images/question_egg.png"; // Reset egg to its original state
+    eggText.innerText = "Click the egg to reveal the mystery!";
+  }, 2000); // Optional delay before resetting the egg (can be removed or customized)
 });
 
 // Handle No button click
