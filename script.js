@@ -10,19 +10,19 @@ const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
-// Set initial egg state to question mark
-egg.src = "assets/images/question_egg.png"; // Show the question mark egg
-eggText.innerText = "Click the egg to reveal the mystery!";
+// Initially hide the buttons
+yesButton.style.display = "none";
+noButton.style.display = "none";
 
-// Preload sounds
+// Preload sounds to ensure they can be played instantly
 const crackSound = new Audio('assets/sounds/crack.mp3');
 const sillySound = new Audio('assets/sounds/silly_sound.mp3');
 const chickenSound = new Audio('assets/sounds/chicken.mp3');
-const proposalSound = new Audio('assets/sounds/proposal.mp3');
+const proposalSound = new Audio('assets/sounds/proposal.mp3'); // Preload proposal sound
 
-// Preload error popup image
-const errorImage = new Image();
-errorImage.src = 'assets/images/error_popup.png'; // Path to the error image
+// Set initial egg state to question mark
+egg.src = "assets/images/question_egg.png"; // Show the question mark egg
+eggText.innerText = "Click the egg to reveal the mystery!";
 
 // Handle click event to reveal the egg texture
 egg.addEventListener("click", revealEgg);
@@ -145,6 +145,11 @@ function showCrashPopup() {
   crashPopupImage.style.top = '50%';
   crashPopupImage.style.left = '50%';
   crashPopupImage.style.transform = 'translate(-50%, -50%)';
+  
+  // Set max width and height to make the image smaller
+  crashPopupImage.style.maxWidth = '300px'; // Set the max width of the popup
+  crashPopupImage.style.maxHeight = '300px'; // Set the max height of the popup
+
   document.body.appendChild(crashPopupImage); // Append the image to the body
 
   setTimeout(() => {
