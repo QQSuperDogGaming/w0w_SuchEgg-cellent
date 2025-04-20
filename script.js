@@ -54,17 +54,20 @@ function startShaking() {
 
 // Simulate the shake effect without long delays
 function simulateShake() {
-  if (isShaking && shakeCount <= 8) {
+  if (isShaking && shakeCount <= 50) {  // Change to 50 shakes for hatching
     shakeCount++;
-    if (shakeCount <= 3) {
+    if (shakeCount <= 10) {
       egg.src = revealedEgg; // Keep it the same for now
       playCrackSound(); // Play crack sound when egg starts cracking
-    } else if (shakeCount > 3 && shakeCount <= 6) {
+    } else if (shakeCount > 10 && shakeCount <= 25) {
       // Transition to half-cracked version immediately
       const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
       egg.src = halfCrackedEgg;
       eggText.innerText = "The egg is cracking!";
-    } else if (shakeCount > 6) {
+    } else if (shakeCount > 25 && shakeCount <= 40) {
+      // Keep half-cracked egg for a few moments
+      egg.src = egg.src;
+    } else if (shakeCount > 40) {
       // Transition to opened version of the revealed egg immediately
       const openedEgg = revealedEgg.replace("egg", "opened_egg");
       egg.src = openedEgg;
