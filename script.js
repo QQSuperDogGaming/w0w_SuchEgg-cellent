@@ -94,7 +94,7 @@ function showButtons() {
 
 // Handle Yes button click (hides after click)
 yesButton.addEventListener('click', () => {
-  playSillySound();
+  playSillySound(); // Play the silly sound when "Yes" is clicked
   eggText.innerText = "Egg-cellent, see you hopping soon!";
   noButton.style.display = "none"; // Hide "no" button after clicking "yes"
   yesButton.style.display = "none"; // Hide "yes" button after clicking
