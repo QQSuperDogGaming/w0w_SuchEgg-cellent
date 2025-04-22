@@ -52,19 +52,22 @@ function startShaking() {
   }
 }
 
-// Simulate the shake effect with larger changes to simulate a harder shake
+// Simulate the shake effect without long delays
 function simulateShake() {
-  if (isShaking && shakeCount <= 8) {
+  if (isShaking && shakeCount <= 20) {
     shakeCount++;
-    if (shakeCount <= 3) {
+    if (shakeCount <= 5) {
       egg.src = revealedEgg; // Keep it the same for now
       playCrackSound(); // Play crack sound when egg starts cracking
-    } else if (shakeCount > 3 && shakeCount <= 6) {
+    } else if (shakeCount > 5 && shakeCount <= 10) {
       // Transition to half-cracked version immediately
       const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
       egg.src = halfCrackedEgg;
       eggText.innerText = "The egg is cracking!";
-    } else if (shakeCount > 6) {
+    } else if (shakeCount > 10 && shakeCount <= 15) {
+      // Keep half-cracked egg for a few moments
+      egg.src = egg.src;
+    } else if (shakeCount > 15) {
       // Transition to opened version of the revealed egg immediately
       const openedEgg = revealedEgg.replace("egg", "opened_egg");
       egg.src = openedEgg;
@@ -73,8 +76,8 @@ function simulateShake() {
       playProposalSound(); // Play proposal sound after egg opens
       isEggOpen = true;
     }
-    // Continue simulating the shake with a slightly larger interval to make it feel harder
-    setTimeout(simulateShake, 50); // Reduced delay to 50ms for a faster transition (feeling more intense)
+    // Continue simulating the shake without waiting too long
+    setTimeout(simulateShake, 100); // Reduced delay to 100ms for smooth transition
   }
 }
 
@@ -103,11 +106,8 @@ noButton.addEventListener('click', (e) => {
   teleportNoButton(); // Teleport "no" button and make chicken sound
   noClickCount++;
 
-  if (noClickCount >= 20 && noClickCount <= 30) {  // Show crash popup after pressing No between 20-30 times
-    const randomChance = Math.floor(Math.random() * 10); // Random chance for popup (30% chance)
-    if (randomChance < 3) {
-      showCrashPopup(); // Show crash popup with the error image
-    }
+  if (noClickCount >= 20 && noClickCount <= 30) {  // Set crash rate between 20 to 30 clicks
+    showCrashPopup(); // Show crash popup with the error image
   }
 });
 
@@ -118,13 +118,16 @@ function teleportNoButton() {
   noButton.style.position = 'absolute'; // Make sure it's absolute
   noButton.style.left = `${randomX}%`;
   noButton.style.top = `${randomY}%`;
-  playChickenSound(); // Play the chicken sound when button is clicked
+  playChickenSound(); // Play chicken sound when button is clicked
+}
+
+// Play a silly sound when "yes" is clicked
+function playSillySound() {
+  sillySound.play();
 }
 
 // Play chicken sound when "no" is clicked
 function playChickenSound() {
-  // Increase the pitch of the chicken sound with each "No" click
-  chickenSound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
   chickenSound.play();
 }
 
@@ -142,21 +145,3 @@ function showCrashPopup() {
   crashPopupImage.style.top = '50%';
   crashPopupImage.style.left = '50%';
   crashPopupImage.style.transform = 'translate(-50%, -50%)';
-  
-  // Set max width and height to make the image smaller
-  crashPopupImage.style.maxWidth = '500px'; // Set the max width of the popup
-  crashPopupImage.style.maxHeight = '500px'; // Set the max height of the popup
-
-  document.body.appendChild(crashPopupImage); // Append the image to the body
-
-  setTimeout(() => {
-    location.reload(); // Reload the page after 5 seconds
-  }, 5000); // Page reload after 5 seconds
-}
-
-// Reload the page after 5 seconds when the popup is shown
-rebootButton.addEventListener('click', () => {
-  setTimeout(() => {
-    location.reload(); // Reload the page
-  }, 5000); // Page reload after 5 seconds
-});
