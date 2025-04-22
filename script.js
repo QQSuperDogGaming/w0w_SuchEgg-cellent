@@ -145,3 +145,21 @@ function showCrashPopup() {
   crashPopupImage.style.top = '50%';
   crashPopupImage.style.left = '50%';
   crashPopupImage.style.transform = 'translate(-50%, -50%)';
+  
+  // Set max width and height to make the image smaller
+  crashPopupImage.style.maxWidth = '500px'; // Set the max width of the popup
+  crashPopupImage.style.maxHeight = '500px'; // Set the max height of the popup
+
+  document.body.appendChild(crashPopupImage); // Append the image to the body
+
+  setTimeout(() => {
+    location.reload(); // Reload the page after 5 seconds
+  }, 5000); // Page reload after 5 seconds
+}
+
+// Reload the page after 5 seconds when the popup is shown
+rebootButton.addEventListener('click', () => {
+  setTimeout(() => {
+    location.reload(); // Reload the page
+  }, 5000); // Page reload after 5 seconds
+});
