@@ -1,5 +1,7 @@
 let shakeCount = 0;
+let noClickCount = 0;
 let isEggOpen = false;
+let isShaking = false; // To control when shaking starts and stops
 let revealedEgg = ""; // Store the revealed egg for transitions
 const egg = document.getElementById("egg");
 const eggText = document.getElementById("eggText");
@@ -8,16 +10,13 @@ const noButton = document.getElementById("noButton");
 const crashPopup = document.getElementById("crashPopup");
 const rebootButton = document.getElementById("rebootButton");
 
-// Shake detection sensitivity threshold (lower value = more sensitive)
-const shakeThreshold = 10; // Lower threshold for more sensitivity
-
 // Initially hide the buttons
 yesButton.style.display = "none";
 noButton.style.display = "none";
 
 // Preload sounds to ensure they can be played instantly
 const crackSound = new Audio('assets/sounds/crack.mp3');
-const sillySound = new Audio('assets/sounds/silly_sound.mp3'); // Silly sound on Yes
+const sillySound = new Audio('assets/sounds/silly_sound.mp3');
 const chickenSound = new Audio('assets/sounds/chicken.mp3');
 const proposalSound = new Audio('assets/sounds/proposal.mp3'); // Preload proposal sound
 
@@ -43,37 +42,30 @@ function revealEgg() {
   startShaking(); // Start shaking the egg
 }
 
-// Set up device motion detection for shake
-let lastX = 0;
-let lastY = 0;
-let lastZ = 0;
+// Simulate the shake action with intervals
+function startShaking() {
+  if (!isShaking) {
+    isShaking = true;
+    shakeCount = 0;
+    eggText.innerText = "Shake the screen!";
+    simulateShake(); // Start shaking simulation
+  }
+}
 
-window.addEventListener('devicemotion', function(event) {
-  const acceleration = event.accelerationIncludingGravity;
-  const x = acceleration.x;
-  const y = acceleration.y;
-  const z = acceleration.z;
-
-  // Calculate the shake intensity (delta)
-  const deltaX = Math.abs(lastX - x);
-  const deltaY = Math.abs(lastY - y);
-  const deltaZ = Math.abs(lastZ - z);
-
-  // Detect shake based on threshold (only register when shake exceeds threshold)
-  if (deltaX + deltaY + deltaZ > shakeThreshold) {
-    playCrackSound(); // Play the crack sound each time a shake is detected
-    shakeCount++; // Increase shake count
-
-    // Reset text and handle egg opening based on shake count
-    if (shakeCount <= 20) {
-      eggText.innerText = `Shake ${shakeCount}/100!`;
-    } else if (shakeCount > 20 && shakeCount <= 50) {
-      eggText.innerText = `The egg is cracking! Shake ${shakeCount}/100`;
+// Simulate the shake effect with larger changes to simulate a harder shake
+function simulateShake() {
+  if (isShaking && shakeCount <= 8) {
+    shakeCount++;
+    if (shakeCount <= 3) {
+      egg.src = revealedEgg; // Keep it the same for now
+      playCrackSound(); // Play crack sound when egg starts cracking
+    } else if (shakeCount > 3 && shakeCount <= 6) {
+      // Transition to half-cracked version immediately
       const halfCrackedEgg = revealedEgg.replace("egg", "half_cracked_egg");
       egg.src = halfCrackedEgg;
-    } else if (shakeCount > 50 && shakeCount <= 75) {
-      eggText.innerText = `Keep shaking! Shake ${shakeCount}/100`;
-    } else if (shakeCount > 75 && shakeCount <= 100) {
+      eggText.innerText = "The egg is cracking!";
+    } else if (shakeCount > 6) {
+      // Transition to opened version of the revealed egg immediately
       const openedEgg = revealedEgg.replace("egg", "opened_egg");
       egg.src = openedEgg;
       eggText.innerText = "Egg opened! Will you be my egg, the chicken to my jockey, hoppy Easter!";
@@ -81,17 +73,14 @@ window.addEventListener('devicemotion', function(event) {
       playProposalSound(); // Play proposal sound after egg opens
       isEggOpen = true;
     }
+    // Continue simulating the shake with a slightly larger interval to make it feel harder
+    setTimeout(simulateShake, 50); // Reduced delay to 50ms for a faster transition (feeling more intense)
   }
+}
 
-  // Save the last acceleration values for the next event
-  lastX = x;
-  lastY = y;
-  lastZ = z;
-});
-
-// Play the silly sound after the Yes button is clicked
-function playSillySound() {
-  sillySound.play();
+// Play the proposal sound after the egg opens
+function playProposalSound() {
+  proposalSound.play();
 }
 
 // Show Yes/No buttons after the egg cracks
@@ -102,16 +91,10 @@ function showButtons() {
 
 // Handle Yes button click (hides after click)
 yesButton.addEventListener('click', () => {
-  playSillySound(); // Play the silly sound when "Yes" is clicked
-  eggText.innerText = "Egg-cellent, see you hopping soon <3"; // Update the text
+  playSillySound();
+  eggText.innerText = "Egg-cellent, see you hopping soon!";
   noButton.style.display = "none"; // Hide "no" button after clicking "yes"
   yesButton.style.display = "none"; // Hide "yes" button after clicking
-
-  // Optionally reset the egg or transition to the next part of your game
-  setTimeout(() => {
-    egg.src = "assets/images/question_egg.png"; // Reset egg to its original state
-    eggText.innerText = "Click the egg to reveal the mystery!";
-  }, 2000); // Optional delay before resetting the egg (can be removed or customized)
 });
 
 // Handle No button click
@@ -161,8 +144,8 @@ function showCrashPopup() {
   crashPopupImage.style.transform = 'translate(-50%, -50%)';
   
   // Set max width and height to make the image smaller
-  crashPopupImage.style.maxWidth = '250px'; // Set the max width of the popup to 250px
-  crashPopupImage.style.maxHeight = '250px'; // Set the max height of the popup to 250px
+  crashPopupImage.style.maxWidth = '500px'; // Set the max width of the popup
+  crashPopupImage.style.maxHeight = '500px'; // Set the max height of the popup
 
   document.body.appendChild(crashPopupImage); // Append the image to the body
 
