@@ -128,6 +128,8 @@ function playSillySound() {
 
 // Play chicken sound when "no" is clicked
 function playChickenSound() {
+  // Increase the pitch of the chicken sound with each "No" click
+  chickenSound.playbackRate = 1 + (noClickCount * 0.1); // Increment pitch with each click
   chickenSound.play();
 }
 
