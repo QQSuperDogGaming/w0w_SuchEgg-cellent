@@ -15,7 +15,7 @@ body {
   height: 100vh;
   overflow: hidden;
   flex-direction: column;
-  background-image: url('assets/images/grass_background.png'); /* Custom background image */
+  background-image: url('assets/images/grass_background.png'); /* Grassy background */
   background-size: cover;
 }
 
@@ -47,8 +47,8 @@ body {
 
 #egg {
   width: auto; 
-  height: auto;
-  max-width: 300px;
+  height: auto; 
+  max-width: 300px; 
   max-height: 450px;
   cursor: pointer;
   transition: transform 0.5s ease-in-out;
