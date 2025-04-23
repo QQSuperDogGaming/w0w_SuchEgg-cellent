@@ -19,7 +19,7 @@ body {
 
 #gameContainer {
   text-align: center;
-  background-color: #fdf2d4; /* Soft off-white (light beige) for the game frame */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background behind content */
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ body {
 
 /* Egg Frame Styling */
 #eggFrame {
-  background-color: #fff5c7; /* Very light yellow (soft beige) background for the egg frame */
+  background-color: #fff5c7; /* Very light yellow (soft beige) for the egg frame */
   padding: 15px;
   border-radius: 20px;
   display: inline-block;
@@ -62,7 +62,7 @@ body {
 #eggText {
   font-size: 20px;
   font-weight: bold;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow for text */
+  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
 }
 
 /* Buttons Styling */
@@ -116,7 +116,7 @@ button:focus {
 
 #username {
   font-size: 18px;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow for the username */
+  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
   margin-left: 10px;
 }
 
@@ -167,3 +167,4 @@ button:focus {
 .popup button:focus {
   outline: none;
 }
+
