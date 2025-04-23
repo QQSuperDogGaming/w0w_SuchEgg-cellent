@@ -20,18 +20,19 @@ body {
   height: 100vh;
   overflow: hidden;
   flex-direction: column;
-  padding: 0 15px; /* Prevents content from touching the edges */
+  padding: 0 5%; /* Prevents content from touching the edges */
+  background-color: #f1e5d8;
 }
 
 /* Main Game Container */
 #gameContainer {
   text-align: center;
   background-color: rgba(216, 201, 184, 0.9); /* Frame with soft beige */
-  padding: 20px;
+  padding: 5%;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 1081px; /* Fixed width */
-  height: 1072px; /* Fixed height */
+  width: 90%; /* Scales with screen size */
+  max-width: 1080px; /* Keeps max width */
   margin-top: 30px;
   position: relative;
 }
@@ -44,21 +45,21 @@ body {
 
 #header h1 {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to title */
-  font-size: 32px;
+  font-size: 5vw; /* Scale with viewport width */
   font-weight: bold;
   color: #978a7c; /* Title color */
   text-transform: uppercase;
-  width: 979px; /* Title width */
-  height: 120px; /* Title height */
+  width: 100%;
+  max-width: 979px;
 }
 
 #header p {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to subtitle */
-  font-size: 16px;
+  font-size: 3.5vw; /* Scale with viewport width */
   color: #c1b4a6; /* Subtitle color */
-  width: 774px; /* Subtitle width */
-  height: 52px; /* Subtitle height */
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 774px;
 }
 
 /* Egg Frame Styling */
@@ -67,18 +68,21 @@ body {
   background-size: contain; /* Ensure the background is not squashed */
   background-repeat: no-repeat; /* Prevent repetition of the grass background */
   background-position: center;
-  padding: 15px;
+  padding: 5%;
   border-radius: 20px;
   display: inline-block;
-  width: 959px; /* Grass background width */
-  height: 980px; /* Grass background height */
+  width: 100%;
+  height: auto;
+  max-width: 90vw; /* Ensure the egg frame scales proportionally */
+  max-height: 90vh;
   position: relative;
 }
 
 /* Egg Image Styling */
 #egg {
-  width: 413px; /* Fixed egg width */
-  height: 413px; /* Fixed egg height */
+  width: 40%; /* Make egg smaller than the grass background */
+  max-width: 413px; /* Max width for the egg */
+  height: auto;
   cursor: pointer;
   position: absolute; /* Position the egg image on top of the background */
   top: 50%; /* Center the egg vertically */
@@ -88,14 +92,15 @@ body {
 
 /* Text Styling */
 #eggText {
-  font-size: 18px;
+  font-size: 4vw; /* Scale text size with viewport width */
   font-weight: bold;
   color: black; /* TEXT color */
   margin-top: 20px;
   text-align: center;
   position: relative; /* Ensure text is placed on top of the egg frame */
-  width: 186px; /* Fixed text width */
-  height: 64px; /* Fixed text height */
+  width: 100%;
+  max-width: 186px;
+  max-height: 64px;
 }
 
 /* Buttons Styling */
@@ -107,14 +112,14 @@ button {
   background-color: #f0c441; /* Soft yellow-gold button color */
   border: none;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 4vw; /* Scale the button size based on screen width */
   cursor: pointer;
   margin: 5px;
   transition: all 0.2s ease;
   display: inline-block;
   border-radius: 20px;
-  width: 1055px; /* Fixed button bar width */
-  height: 100px; /* Fixed height for the button bar */
+  max-width: 1055px;
+  height: 8vh;
 }
 
 button:hover {
@@ -134,14 +139,13 @@ button:focus {
   background-color: #d8c9b8; /* Soft beige for the bottom bar */
   padding: 10px;
   display: flex;
-  justify-content: space-between; /* Make the footer bar horizontal */
+  justify-content: center;
   align-items: center;
   gap: 15px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px; /* Rounded corners */
-  width: 100%; /* Make sure it fits the screen */
-  max-width: 1055px; /* Fixed width for button bar */
-  height: 100px;
+  width: 100%;
+  height: 10vh;
 }
 
 #bottomBar a {
@@ -150,29 +154,29 @@ button:focus {
 }
 
 #bottomBar img {
-  width: 30px;
-  height: 30px;
+  width: 6vw; /* Scale the icon size */
+  height: 6vw;
 }
 
 #username {
   font-family: 'UCR_F', sans-serif; /* Apply the UCR_F font for Username */
-  font-size: 16px;
+  font-size: 3.5vw; /* Scale based on viewport width */
   color: white; /* Username color */
   margin-left: 10px;
-  width: 331px; /* Fixed username width */
-  height: 57px; /* Fixed username height */
+  width: 30%; /* Ensure username stays within bounds */
+  height: auto;
 }
 
 /* Copyright Styling */
 #copyrightNotice {
   font-family: 'UCR_F', sans-serif; /* Apply the UCR_F font for Copyright */
-  font-size: 12px;
+  font-size: 1.2vw; /* Scale based on viewport width */
   color: black; /* Copyright color */
   position: absolute;
   bottom: 5px;
   left: 20px;
-  width: 375px; /* Fixed copyright width */
-  height: 15px; /* Fixed copyright height */
+  width: 375px;
+  height: 15px;
 }
 
 /* Popup Styling */
@@ -219,19 +223,19 @@ button:focus {
 @media (max-width: 480px) {
   /* Title and subtitle font adjustments for small screens */
   #header h1 {
-    font-size: 24px;
+    font-size: 6vw;
   }
 
   #header p {
-    font-size: 14px;
+    font-size: 4vw;
   }
 
   #eggFrame {
-    padding: 10px;
+    padding: 5%;
   }
 
   #eggText {
-    font-size: 16px;
+    font-size: 5vw;
   }
 
   #bottomBar {
@@ -244,8 +248,15 @@ button:focus {
   }
 
   #bottomBar img {
-    width: 25px;
-    height: 25px;
+    width: 8vw;
+    height: 8vw;
+  }
+
+  #username {
+    font-size: 4vw;
+  }
+
+  #copyrightNotice {
+    font-size: 3vw;
   }
 }
-
