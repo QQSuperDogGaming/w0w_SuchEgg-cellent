@@ -6,7 +6,7 @@
 }
 
 /* Apply the custom font */
-body, #header h1, #header p, #eggText, #username, #copyrightNotice {
+body, #header h1, #header p, #eggText {
   font-family: 'Press Start 2P', cursive; /* Custom pixelated font */
 }
 
@@ -124,13 +124,13 @@ button:focus {
   height: 30px;
 }
 
-#username {
-  font-size: 16px;
+/* Apply the UCR_F font to Username and Copyright */
+#username, #copyrightNotice {
+  font-family: 'UCR_F', sans-serif; /* Apply the UCR_F font for Username and Copyright */
   color: white; /* Username color */
-  margin-left: 10px;
+  font-size: 16px;
 }
 
-/* Copyright Styling */
 #copyrightNotice {
   position: absolute;
   bottom: 20px;
