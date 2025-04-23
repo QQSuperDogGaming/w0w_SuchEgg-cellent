@@ -64,11 +64,15 @@ body {
   padding: 15px;
   border-radius: 20px;
   display: inline-block;
+  position: relative;
+  width: 100%; /* Adjust width to fit the content */
+  max-width: 250px; /* Limit width to ensure the egg doesn't stretch */
 }
 
+/* Egg Image Styling */
 #egg {
   width: 100%; 
-  max-width: 250px; /* Adjust the max width of the egg image */
+  max-width: 200px; /* Adjust the max width of the egg image */
   height: auto;
   cursor: pointer;
   position: absolute; /* Position the egg image on top of the background */
@@ -77,6 +81,7 @@ body {
   transform: translate(-50%, -50%); /* Fine-tune centering */
 }
 
+/* Text Styling */
 #eggText {
   font-size: 18px;
   font-weight: bold;
