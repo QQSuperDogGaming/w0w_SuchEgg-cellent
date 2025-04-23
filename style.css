@@ -31,8 +31,9 @@ body {
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Make the container take up 100% of available width */
-  max-width: 400px; /* Limit width on larger screens */
+  max-width: 90%; /* Limit width on larger screens */
   margin-top: 30px;
+  overflow: hidden;
 }
 
 /* Title and Subtitle */
@@ -43,7 +44,7 @@ body {
 
 #header h1 {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to title */
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   color: #978a7c; /* Title color */
   text-transform: uppercase;
@@ -64,15 +65,15 @@ body {
   padding: 15px;
   border-radius: 20px;
   display: inline-block;
-  position: relative;
   width: 100%; /* Adjust width to fit the content */
-  max-width: 250px; /* Limit width to ensure the egg doesn't stretch */
+  max-width: 80%; /* Ensure the egg frame doesn't exceed 80% of screen width */
+  position: relative;
 }
 
 /* Egg Image Styling */
 #egg {
   width: 100%; 
-  max-width: 200px; /* Adjust the max width of the egg image */
+  max-width: 250px; /* Adjust the max width of the egg image */
   height: auto;
   cursor: pointer;
   position: absolute; /* Position the egg image on top of the background */
@@ -124,7 +125,7 @@ button:focus {
   left: 50%;
   transform: translateX(-50%); /* Center the footer horizontally */
   background-color: #d8c9b8; /* Soft beige for the bottom bar */
-  padding: 15px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -235,4 +236,3 @@ button:focus {
     height: 25px;
   }
 }
-
