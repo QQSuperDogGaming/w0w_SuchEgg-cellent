@@ -55,14 +55,12 @@ body {
   cursor: pointer;
 }
 
-#eggTextContainer {
-  margin-top: 20px;
-}
-
 #eggText {
   font-size: 20px;
   font-weight: bold;
   color: #5f5b44; /* Dark gray with a hint of greenish yellow */
+  margin-top: 20px;
+  text-align: center; /* Centered text inside the egg frame */
 }
 
 /* Buttons Styling */
@@ -124,6 +122,7 @@ button:focus {
 #copyrightNotice {
   position: absolute;
   bottom: 20px;
+  left: 20px;
   font-size: 12px;
   color: #aaa;
 }
@@ -167,3 +166,4 @@ button:focus {
 .popup button:focus {
   outline: none;
 }
+
