@@ -23,6 +23,19 @@ body {
   padding: 0 15px; /* Prevents content from touching the edges */
 }
 
+/* Main Game Container */
+#gameContainer {
+  text-align: center;
+  background-color: rgba(216, 201, 184, 0.9); /* Frame with soft beige */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 1081px; /* Fixed width */
+  height: 1072px; /* Fixed height */
+  margin-top: 30px;
+  position: relative;
+}
+
 /* Title and Subtitle */
 #header {
   text-align: center;
@@ -31,52 +44,41 @@ body {
 
 #header h1 {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to title */
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
   color: #978a7c; /* Title color */
   text-transform: uppercase;
+  width: 979px; /* Title width */
+  height: 120px; /* Title height */
 }
 
 #header p {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to subtitle */
   font-size: 16px;
   color: #c1b4a6; /* Subtitle color */
+  width: 774px; /* Subtitle width */
+  height: 52px; /* Subtitle height */
   margin-bottom: 20px;
-}
-
-/* Main Game Container */
-#gameContainer {
-  text-align: center;
-  background-color: rgba(216, 201, 184, 0.9); /* Frame with soft beige */
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 350px; /* Limit width to avoid stretching */
-  margin-top: 30px;
-  position: relative;
 }
 
 /* Egg Frame Styling */
 #eggFrame {
   background-image: url('assets/images/grass_background.png'); /* Set the grass background */
-  background-size: contain; /* Ensure the grass background is not squashed */
+  background-size: contain; /* Ensure the background is not squashed */
   background-repeat: no-repeat; /* Prevent repetition of the grass background */
   background-position: center;
   padding: 15px;
   border-radius: 20px;
   display: inline-block;
-  width: 100%;
-  height: auto;
-  max-width: 250px; /* Ensure the egg fits within the frame */
+  width: 959px; /* Grass background width */
+  height: 980px; /* Grass background height */
   position: relative;
 }
 
 /* Egg Image Styling */
 #egg {
-  width: 70%; /* Make egg smaller than the grass background */
-  max-width: 150px; /* Maximum width of the egg */
-  height: auto;
+  width: 413px; /* Fixed egg width */
+  height: 413px; /* Fixed egg height */
   cursor: pointer;
   position: absolute; /* Position the egg image on top of the background */
   top: 50%; /* Center the egg vertically */
@@ -92,6 +94,8 @@ body {
   margin-top: 20px;
   text-align: center;
   position: relative; /* Ensure text is placed on top of the egg frame */
+  width: 186px; /* Fixed text width */
+  height: 64px; /* Fixed text height */
 }
 
 /* Buttons Styling */
@@ -109,7 +113,8 @@ button {
   transition: all 0.2s ease;
   display: inline-block;
   border-radius: 20px;
-  max-width: 120px; /* Prevent the button from stretching too wide */
+  width: 1055px; /* Fixed button bar width */
+  height: 100px; /* Fixed height for the button bar */
 }
 
 button:hover {
@@ -134,7 +139,9 @@ button:focus {
   gap: 15px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px; /* Rounded corners */
-  width: 95%; /* Ensures the footer does not touch the edges */
+  width: 100%; /* Make sure it fits the screen */
+  max-width: 1055px; /* Fixed width for button bar */
+  height: 100px;
 }
 
 #bottomBar a {
@@ -152,7 +159,8 @@ button:focus {
   font-size: 16px;
   color: white; /* Username color */
   margin-left: 10px;
-  flex-grow: 1; /* Ensures username stays to the right */
+  width: 331px; /* Fixed username width */
+  height: 57px; /* Fixed username height */
 }
 
 /* Copyright Styling */
@@ -162,7 +170,9 @@ button:focus {
   color: black; /* Copyright color */
   position: absolute;
   bottom: 5px;
-  left: 10px;
+  left: 20px;
+  width: 375px; /* Fixed copyright width */
+  height: 15px; /* Fixed copyright height */
 }
 
 /* Popup Styling */
@@ -238,3 +248,4 @@ button:focus {
     height: 25px;
   }
 }
+
