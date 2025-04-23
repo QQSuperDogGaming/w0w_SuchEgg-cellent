@@ -15,27 +15,32 @@ body {
   height: 100vh;
   overflow: hidden;
   flex-direction: column;
+  padding: 0 10px; /* Prevents content from touching the edges */
 }
 
+/* Main Game Container */
 #gameContainer {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8); /* Light background behind content */
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Make the container take up 100% of available width */
+  max-width: 400px; /* Limit width on larger screens */
+  margin-top: 30px;
 }
 
 /* Title and Subtitle */
 #header h1 {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: bold;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
+  color: #5f5b44;
   text-transform: uppercase;
 }
 
 #header p {
-  font-size: 18px;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
+  font-size: 16px;
+  color: #5f5b44;
   margin-bottom: 20px;
 }
 
@@ -48,19 +53,18 @@ body {
 }
 
 #egg {
-  width: auto; 
+  width: 100%; 
+  max-width: 250px; /* Adjust the max width of the egg image */
   height: auto;
-  max-width: 300px;
-  max-height: 450px;
   cursor: pointer;
 }
 
 #eggText {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
+  color: #5f5b44;
   margin-top: 20px;
-  text-align: center; /* Centered text inside the egg frame */
+  text-align: center;
 }
 
 /* Buttons Styling */
@@ -76,12 +80,13 @@ button {
   cursor: pointer;
   margin: 5px;
   transition: all 0.2s ease;
-  display: none;
+  display: inline-block;
   border-radius: 20px;
+  max-width: 120px; /* Prevent the button from stretching too wide */
 }
 
 button:hover {
-  background-color: #e5b33d; /* Slightly darker yellow-gold on hover */
+  background-color: #e5b33d;
 }
 
 button:focus {
@@ -94,7 +99,7 @@ button:focus {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #f1e5d8; /* Soft beige for the bottom bar */
+  background-color: #f1e5d8;
   padding: 15px;
   display: flex;
   justify-content: center;
@@ -113,8 +118,8 @@ button:focus {
 }
 
 #username {
-  font-size: 18px;
-  color: #5f5b44; /* Dark gray with a hint of greenish yellow */
+  font-size: 16px;
+  color: #5f5b44;
   margin-left: 10px;
 }
 
@@ -165,5 +170,39 @@ button:focus {
 
 .popup button:focus {
   outline: none;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 480px) {
+  /* Title and subtitle font adjustments for small screens */
+  #header h1 {
+    font-size: 24px;
+  }
+
+  #header p {
+    font-size: 14px;
+  }
+
+  #eggFrame {
+    padding: 10px;
+  }
+
+  #eggText {
+    font-size: 16px;
+  }
+
+  #bottomBar {
+    flex-direction: column; /* Stack the icons vertically on mobile */
+    padding: 10px;
+  }
+
+  #bottomBar a {
+    margin-bottom: 10px;
+  }
+
+  #bottomBar img {
+    width: 25px;
+    height: 25px;
+  }
 }
 
