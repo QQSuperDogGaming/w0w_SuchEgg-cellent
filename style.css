@@ -17,23 +17,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   flex-direction: column;
-  padding: 0 5%; /* Prevents content from touching the edges */
-  background-color: #f1e5d8;
+  padding: clamp(1rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
 }
 
 /* Main Game Container */
 #gameContainer {
   text-align: center;
   background-color: rgba(216, 201, 184, 0.9); /* Frame with soft beige */
-  padding: 5%;
+  padding: clamp(1.5rem, 4vw, 3rem);
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 90%; /* Scales with screen size */
-  max-width: 1080px; /* Keeps max width */
-  margin-top: 30px;
+  width: min(100%, 1080px); /* Scales with screen size */
   position: relative;
 }
 
@@ -45,21 +42,22 @@ body {
 
 #header h1 {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to title */
-  font-size: 5vw; /* Scale with viewport width */
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
   font-weight: bold;
   color: #978a7c; /* Title color */
   text-transform: uppercase;
   width: 100%;
   max-width: 979px;
+  margin-inline: auto;
 }
 
 #header p {
   font-family: 'TST_F', sans-serif; /* Apply the TST_F font to subtitle */
-  font-size: 3.5vw; /* Scale with viewport width */
+  font-size: clamp(1rem, 3vw, 2rem);
   color: #c1b4a6; /* Subtitle color */
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 774px;
+  margin-bottom: clamp(1rem, 3vw, 1.75rem);
+  width: min(100%, 774px);
+  margin-inline: auto;
 }
 
 /* Egg Frame Styling */
@@ -68,20 +66,20 @@ body {
   background-size: contain; /* Ensure the background is not squashed */
   background-repeat: no-repeat; /* Prevent repetition of the grass background */
   background-position: center;
-  padding: 5%;
+  padding: clamp(1.5rem, 5vw, 3rem);
   border-radius: 20px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: auto;
-  max-width: 90vw; /* Ensure the egg frame scales proportionally */
-  max-height: 90vh;
+  aspect-ratio: 4 / 3;
   position: relative;
+  overflow: hidden;
 }
 
 /* Egg Image Styling */
 #egg {
-  width: 40%; /* Make egg smaller than the grass background */
-  max-width: 413px; /* Max width for the egg */
+  width: clamp(140px, 35%, 320px); /* Make egg smaller than the grass background */
   height: auto;
   cursor: pointer;
   position: absolute; /* Position the egg image on top of the background */
@@ -92,15 +90,14 @@ body {
 
 /* Text Styling */
 #eggText {
-  font-size: 4vw; /* Scale text size with viewport width */
+  font-size: clamp(1rem, 4vw, 2rem);
   font-weight: bold;
   color: black; /* TEXT color */
-  margin-top: 20px;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
   text-align: center;
   position: relative; /* Ensure text is placed on top of the egg frame */
-  width: 100%;
-  max-width: 186px;
-  max-height: 64px;
+  width: min(100%, 220px);
+  margin-inline: auto;
 }
 
 /* Buttons Styling */
@@ -111,15 +108,14 @@ body {
 button {
   background-color: #f0c441; /* Soft yellow-gold button color */
   border: none;
-  padding: 10px 20px;
-  font-size: 4vw; /* Scale the button size based on screen width */
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1rem, 3.5vw, 1.75rem);
   cursor: pointer;
-  margin: 5px;
+  margin: clamp(0.5rem, 2vw, 1rem);
   transition: all 0.2s ease;
   display: inline-block;
   border-radius: 20px;
-  max-width: 1055px;
-  height: 8vh;
+  max-width: 100%;
 }
 
 button:hover {
@@ -132,20 +128,17 @@ button:focus {
 
 /* Bottom Bar Styling (Footer) */
 #bottomBar {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%); /* Center the footer horizontally */
   background-color: #d8c9b8; /* Soft beige for the bottom bar */
-  padding: 10px;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px; /* Rounded corners */
-  width: 100%;
-  height: 10vh;
+  width: min(100%, 640px);
+  flex-wrap: wrap;
+  margin-inline: auto;
 }
 
 #bottomBar a {
@@ -154,29 +147,23 @@ button:focus {
 }
 
 #bottomBar img {
-  width: 6vw; /* Scale the icon size */
-  height: 6vw;
+  width: clamp(32px, 6vw, 64px); /* Scale the icon size */
+  height: clamp(32px, 6vw, 64px);
 }
 
 #username {
   font-family: 'UCR_F', sans-serif; /* Apply the UCR_F font for Username */
-  font-size: 3.5vw; /* Scale based on viewport width */
+  font-size: clamp(0.875rem, 3vw, 1.5rem);
   color: white; /* Username color */
-  margin-left: 10px;
-  width: 30%; /* Ensure username stays within bounds */
-  height: auto;
+  margin-left: clamp(0.5rem, 2vw, 1rem);
 }
 
 /* Copyright Styling */
 #copyrightNotice {
   font-family: 'UCR_F', sans-serif; /* Apply the UCR_F font for Copyright */
-  font-size: 1.2vw; /* Scale based on viewport width */
+  font-size: clamp(0.75rem, 2vw, 1rem);
   color: black; /* Copyright color */
-  position: absolute;
-  bottom: 5px;
-  left: 20px;
-  width: 375px;
-  height: 15px;
+  text-align: center;
 }
 
 /* Popup Styling */
@@ -220,43 +207,31 @@ button:focus {
 }
 
 /* Media Queries for Responsive Design */
-@media (max-width: 480px) {
-  /* Title and subtitle font adjustments for small screens */
-  #header h1 {
-    font-size: 6vw;
+@media (max-width: 600px) {
+  body {
+    align-items: stretch;
   }
 
-  #header p {
-    font-size: 4vw;
+  #gameContainer {
+    width: 100%;
   }
 
   #eggFrame {
-    padding: 5%;
+    aspect-ratio: 1 / 1;
   }
 
-  #eggText {
-    font-size: 5vw;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
   }
 
   #bottomBar {
-    flex-direction: column; /* Stack the icons vertically on mobile */
-    padding: 10px;
-  }
-
-  #bottomBar a {
-    margin-bottom: 10px;
-  }
-
-  #bottomBar img {
-    width: 8vw;
-    height: 8vw;
-  }
-
-  #username {
-    font-size: 4vw;
-  }
-
-  #copyrightNotice {
-    font-size: 3vw;
+    justify-content: space-between;
   }
 }
